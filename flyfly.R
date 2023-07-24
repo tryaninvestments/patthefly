@@ -17,8 +17,8 @@ library(binman)
 
 # Function to start Chrome WebDriver using WebDriver Manager
 start_chrome <- function() {
-  # Use WebDriver Manager to set up ChromeDriver
-  wdman::install('chrome')
+  # Use wdman to set up ChromeDriver
+  wdman::chrome(download = TRUE, version = "latest")
   
   # Start the Chrome WebDriver
   driver <- rsDriver(browser = "chrome")
