@@ -89,7 +89,7 @@ def scrape_data(driver):
 driver = start_chrome()
 
 # Step 2: Build Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 @app.route('/')
 def index():
