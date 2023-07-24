@@ -1,5 +1,4 @@
 # Load necessary libraries
-install.packages(c("RSelenium", "rvest", "shiny", "DT"))
 
 library(RSelenium)
 library(rvest)
