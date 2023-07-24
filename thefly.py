@@ -105,9 +105,9 @@ def index():
 # Step 3: Stop Chrome WebDriver when the Flask app is closed
 @app.before_first_request
 def setup():
-    global driver
-    def close_driver():
-        driver.quit()
+    def close_driver(_=None):  # Add an optional argument to close_driver()
+        if driver is not None:
+            driver.quit()
     app.teardown_appcontext(close_driver)
 
 # Step 4: Run the Flask app
