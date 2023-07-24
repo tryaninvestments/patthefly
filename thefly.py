@@ -2,7 +2,7 @@ import time
 import re
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -14,7 +14,6 @@ def start_chrome():
     # Wait for some time (adjust the time as needed to ensure the content is loaded)
     time.sleep(10)
     return driver
-
 
 # Function to scroll down the webpage using JavaScript
 def scroll_down(driver):
@@ -99,14 +98,14 @@ def index():
     # Render the data in an HTML table
     return render_template("table.html", data=scraped_data)
 
-# Step 3: Stop Chrome WebDriver when the Flask app is closed
-@app.before_first_request
-def setup():
+# Step 3: Teardown the driver when the Flask app is closed
+@app.teardown_appcontext
+def teardown_driver(exception=None):
     global driver
-    def close_driver():
+    if driver is not None:
         driver.quit()
-    app.teardown_appcontext(close_driver)
 
 # Step 4: Run the Flask app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+
