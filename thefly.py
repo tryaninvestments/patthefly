@@ -1,3 +1,4 @@
+import os
 import time
 import re
 from selenium import webdriver
@@ -91,6 +92,9 @@ driver = start_chrome()
 # Step 2: Build Flask app
 app = Flask(__name__)
 
+# Set the template folder explicitly to the current directory using an absolute path
+app.template_folder = os.path.dirname(os.path.abspath(__file__))
+
 @app.route('/')
 def index():
     # Call the scraper function to get the latest data
@@ -98,14 +102,16 @@ def index():
     # Render the data in an HTML table
     return render_template("table.html", data=scraped_data)
 
-# Step 3: Teardown the driver when the Flask app is closed
-@app.teardown_appcontext
-def teardown_driver(exception=None):
+# Step 3: Stop Chrome WebDriver when the Flask app is closed
+@app.before_first_request
+def setup():
     global driver
-    if driver is not None:
+    def close_driver():
         driver.quit()
+    app.teardown_appcontext(close_driver)
 
 # Step 4: Run the Flask app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+)
 
