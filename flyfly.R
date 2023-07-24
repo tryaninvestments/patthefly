@@ -1,5 +1,14 @@
-# Load necessary libraries
+# Install necessary packages (if not already installed)
+required_packages <- c("RSelenium", "rvest", "shiny", "DT")
 
+# Check if each package is installed, and if not, install it
+for (package in required_packages) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    install.packages(package, repos = "https://cran.rstudio.com")
+  }
+}
+
+# Load necessary libraries
 library(RSelenium)
 library(rvest)
 library(shiny)
