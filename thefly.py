@@ -4,15 +4,17 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from flask import Flask, render_template
 
-# Function to connect to the remote Chrome WebDriver
+from webdriver_manager.chrome import ChromeDriverManager
+
 def start_chrome():
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")  # Optional: Run Chrome in headless mode (no GUI)
-    driver = webdriver.Chrome(options=options)
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.get("https://thefly.com/news.php?fecha=2023-07-22&analyst_recommendations=on&upgrade_filter=on&downgrade_filter=on&initiate_filter=on&no_change_filter=on&symbol=")
     # Wait for some time (adjust the time as needed to ensure the content is loaded)
     time.sleep(10)
     return driver
+
 
 # Function to scroll down the webpage using JavaScript
 def scroll_down(driver):
