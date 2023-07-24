@@ -13,15 +13,22 @@ library(RSelenium)
 library(rvest)
 library(shiny)
 library(DT)
+library(binman)
 
-# Function to connect to the remote Chrome WebDriver
+# Function to start Chrome WebDriver using WebDriver Manager
 start_chrome <- function() {
-  driver <- rsDriver(browser = "chrome", chromever = "115.0.5790.102")
+  # Use WebDriver Manager to set up ChromeDriver
+  wdman::install('chrome')
+  
+  # Start the Chrome WebDriver
+  driver <- rsDriver(browser = "chrome")
   driver$client$navigate("https://thefly.com/news.php?fecha=2023-07-22&analyst_recommendations=on&upgrade_filter=on&downgrade_filter=on&initiate_filter=on&no_change_filter=on&symbol=")
   # Wait for some time (adjust the time as needed to ensure the content is loaded)
   Sys.sleep(10)
   return(driver)
 }
+
+
 
 # Function to scroll down the webpage using JavaScript
 scroll_down <- function(driver) {
