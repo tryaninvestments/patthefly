@@ -16,7 +16,7 @@ library(DT)
 
 # Function to connect to the remote Chrome WebDriver
 start_chrome <- function() {
-  driver <- rsDriver(browser = "chrome", chromever = "114.0.5735.90")
+  driver <- rsDriver(browser = "chrome", chromever = "115.0.5790.102")
   driver$client$navigate("https://thefly.com/news.php?fecha=2023-07-22&analyst_recommendations=on&upgrade_filter=on&downgrade_filter=on&initiate_filter=on&no_change_filter=on&symbol=")
   # Wait for some time (adjust the time as needed to ensure the content is loaded)
   Sys.sleep(10)
