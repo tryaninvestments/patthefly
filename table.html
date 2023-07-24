@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Stock Recommendations</title>
+</head>
+<body>
+    <h1>Real-Time Stock Recommendations</h1>
+    <table>
+        <tr>
+            <th>Company Name</th>
+            <th>Upgrade/Downgrade</th>
+            <th>Analyst</th>
+            <th>Price Target</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <td>{{ entry["CompanyName"] }}</td>
+            <td>{{ entry["UpgradeDowngrade"] }}</td>
+            <td>{{ entry["Analyst"] }}</td>
+            <td>{{ entry["PriceTarget"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
