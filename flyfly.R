@@ -1,13 +1,11 @@
 # Load necessary libraries
 library(RSelenium)
 library(rvest)
-library(shiny)
 library(DT)
 
-# Function to connect to the remote Chrome WebDriver
-start_chrome <- function() {
-  driver <- rsDriver(browser = "chrome", chromever = "114.0.5735.90", port = 4446L)
-  driver$client$navigate("https://thefly.com/news.php?fecha=2023-07-22&analyst_recommendations=on&upgrade_filter=on&downgrade_filter=on&initiate_filter=on&no_change_filter=on&symbol=")
+# Function to connect to the remote Firefox WebDriver
+start_firefox <- function() {
+  driver <- rsDriver(browser = "firefox", version = "latest", port = 4445L)
   # Wait for some time (adjust the time as needed to ensure the content is loaded)
   Sys.sleep(10)
   return(driver)
@@ -91,7 +89,7 @@ scrape_data <- function(driver) {
 }
 
 # Step 1: Connect to the remote Chrome WebDriver
-driver <- start_chrome()
+driver <- start_firefox()
 
 # Step 2: Build Shiny app
 ui <- fluidPage(
